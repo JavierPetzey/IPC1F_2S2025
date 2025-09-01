@@ -7,7 +7,9 @@ public class ventas {
         
     }
     
+    
     public static void generarReportes(){
         
     }
+    
 }

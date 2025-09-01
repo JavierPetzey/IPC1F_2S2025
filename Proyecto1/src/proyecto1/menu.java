@@ -2,27 +2,25 @@
 package proyecto1;
 
 public class menu {
-    
+    int numeroProducto;
     
     public static void llamarMenu()
     {
         boolean elegirOpcion = true;
         int menuOpcion;
-
+        
+        //Verifica si se selecciona alguna opcion disponible
         while (elegirOpcion){
             menuVisual();
             System.out.println("Seleccione alguna Opcion: ");
             
             menuOpcion = Integer.parseInt(System.console().readLine());
-            
-            seleccionMenu(menuOpcion);
-            
-            if (menuOpcion > 1 && menuOpcion < 8){
-                
+
+            if (menuOpcion >= 1 && menuOpcion <= 8){
+                seleccionMenu(menuOpcion);
                 elegirOpcion = false;
             }else{
                 System.out.println("Ninguna Opcion ha sido seleccionada");
-                
             }
         }
     }
