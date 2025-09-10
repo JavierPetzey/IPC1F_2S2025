@@ -50,7 +50,16 @@ public class acciones {
         
         return false;
     }
-    
-    
 
+    public static boolean verificarExistencia(int codigo){
+        int totalProductosRegistrados = inventario.numeroProducto;
+        producto[] listaInventario = inventario.listaProductos;
+        
+        for (int revisar = 0; revisar <= totalProductosRegistrados; revisar++ ){
+            if(codigo == listaInventario[revisar].codigo){
+                return true;
+            }
+        }
+        return false;
+    }
 }

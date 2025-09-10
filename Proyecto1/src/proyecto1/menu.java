@@ -77,6 +77,46 @@ public class menu {
     }
     
     
+    public static void categoriaProducto(){
+        System.out.println("Seleccione la Categoria del Producto");
+        System.out.println("1-Camisetas y Blusas");
+        System.out.println("2-Pantalones y Jeans");
+        System.out.println("3-Faldas y Vestidos");
+        System.out.println("4-Chamarras y Abrigos");
+        System.out.println("5-Sueteres y Sudaderas");
+        System.out.println("6-Ropa Interior");
+        System.out.println("7-Calzado");
+        System.out.println("8-Accesorios");
+        System.out.println("9-Ropa Deportiva");
+        System.out.println("10-Ropa de Dormir");
+    }
+    
+    public static String categoriaSeleccionada(int seleccionOpcion){
+        switch(seleccionOpcion){
+            case 1:
+                return "Camisetas y Blusas";
+            case 2:
+                return "Pantalones y Jeans";
+            case 3:
+                return "Faldas y Vestidos";
+            case 4:
+                return "Chamarras y Abrigos";
+            case 5:
+                return "Sueteres y Sudaderas";
+            case 6:
+                return "Ropa Interior";
+            case 7:
+                return "Calzado";
+            case 8:
+                return "Accesorios";
+            case 9:
+                return "Ropa Deportiva";
+            case 10:
+                return "Ropa de Dormir";
+            
+        }
+        return "Sin Categoria";
+    }
     
     
     
