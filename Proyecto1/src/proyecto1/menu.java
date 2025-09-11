@@ -2,7 +2,7 @@
 package proyecto1;
 
 public class menu {
-    int numeroProducto;
+
     
     public static void llamarMenu()
     {
