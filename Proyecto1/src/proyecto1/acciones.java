@@ -52,14 +52,23 @@ public class acciones {
     }
 
     public static boolean verificarExistencia(int codigo){
-        int totalProductosRegistrados = inventario.numeroProducto;
         producto[] listaInventario = inventario.listaProductos;
         
-        for (int revisar = 0; revisar <= totalProductosRegistrados; revisar++ ){
+        for (int revisar = 0; revisar <= inventario.numeroProducto; revisar++ ){
             if(codigo == listaInventario[revisar].codigo){
                 return true;
             }
         }
         return false;
+    }
+    
+    
+    public static void imprimirListaProducto(){
+        for (int noProducto = 0; noProducto <= inventario.numeroProducto; noProducto++){
+            System.out.println("Codigo: " + inventario.listaProductos[noProducto].codigo);
+            System.out.println("Nombre: " + inventario.listaProductos[noProducto].nombre);
+            System.out.println("------------------------");
+            
+        }
     }
 }

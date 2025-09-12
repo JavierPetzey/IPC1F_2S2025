@@ -29,12 +29,12 @@ public class inventario {
         
         
         precioProducto = Double.parseDouble(System.console().readLine("Precio del Producto: "));
-        while(precioProducto<0){
+        while(precioProducto<1){
             precioProducto = Double.parseDouble(System.console().readLine("Ingresar un Precio Positivo: "));
         }
         
         cantidadStock = Integer.parseInt(System.console().readLine("Cantidad del Producto: "));
-        while(cantidadStock<0){
+        while(cantidadStock<1){
             cantidadStock = Integer.parseInt(System.console().readLine("Ingresar una Cantidad Positiva: "));
         }
         
