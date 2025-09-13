@@ -37,11 +37,11 @@ public class acciones {
     
     //Verifica si hay productos 
     public static boolean revisarInventario(){
-        int totalProductosRegistrados = inventario.numeroProducto;
+        int totalProductosRegistrados = inventario.indiceIncremento;
         producto[] listaInventario = inventario.listaProductos;
 
         
-        for (int producto = 0; producto <= totalProductosRegistrados; producto++){
+        for (int producto = 0; producto < totalProductosRegistrados; producto++){
             if (listaInventario[producto] != null){
                 
                 return true;
@@ -54,7 +54,7 @@ public class acciones {
     public static boolean verificarExistencia(int codigo){
         producto[] listaInventario = inventario.listaProductos;
         
-        for (int revisar = 0; revisar <= inventario.numeroProducto; revisar++ ){
+        for (int revisar = 0; revisar < inventario.indiceIncremento; revisar++ ){
             if(codigo == listaInventario[revisar].codigo){
                 return true;
             }
@@ -64,11 +64,26 @@ public class acciones {
     
     
     public static void imprimirListaProducto(){
-        for (int noProducto = 0; noProducto <= inventario.numeroProducto; noProducto++){
+        for (int noProducto = 0; noProducto < inventario.indiceIncremento; noProducto++){
             System.out.println("Codigo: " + inventario.listaProductos[noProducto].codigo);
             System.out.println("Nombre: " + inventario.listaProductos[noProducto].nombre);
             System.out.println("------------------------");
             
         }
+    }
+    
+    public static boolean revisarVentas(){
+        int totalVentasRegistradas = ventas.indiceNoRegistro;
+        registroDeVenta[] listaInventario = ventas.totalVentasProductos;
+
+        
+        for (int venta = 0; venta < totalVentasRegistradas; venta++){
+            if (listaInventario[venta] != null){
+                
+                return true;
+            }
+        }
+        
+        return false;
     }
 }

@@ -4,6 +4,7 @@ package proyecto1;
 
 public class inventario {
     static int numeroProducto = 0;
+    static int indiceIncremento = 0;
     static menu regresarMenu = new menu();
     //Vector objeto que va a contener todos los productos
     static producto[] listaProductos = new producto[100];
@@ -14,14 +15,14 @@ public class inventario {
         String nombreProducto ;
         int cantidadStock, categoriaProducto;
         double precioProducto;
-        
-        
+        int numCodigo = numeroProducto+1;
         System.out.println("-Agregar Producto-");
+        System.out.println("Codigo del Producto: " + numCodigo);
         nombreProducto = System.console().readLine("Nombre del Producto: ");
         
         regresarMenu.categoriaProducto();
         categoriaProducto = Integer.parseInt(System.console().readLine("Categoria del Producto: "));
-        while(categoriaProducto<1 && categoriaProducto > 10){
+        while(categoriaProducto<1 || categoriaProducto > 10){
             categoriaProducto = Integer.parseInt(System.console().readLine("Ingresar alguna de las Categorias mostradas: "));
         }
         
@@ -39,25 +40,30 @@ public class inventario {
         }
         
         
-        
         if(!confirmacion.confirmarAccion()){
             System.out.println("Se cancelo agregar Producto");
-            
+
+            String agregarABitacora = menu.agregarProductoBitacora(false, cantidadStock, nombreProducto, categoriaElegida);
+            menu.bitacora(agregarABitacora);
             regresarMenu.llamarMenu();
             return;
         }
+
+        String agregarABitacora = menu.agregarProductoBitacora(true, cantidadStock, nombreProducto, categoriaElegida);
+        menu.bitacora(agregarABitacora);
         
         //Objeto con diferente indice para cada producto
-        listaProductos[numeroProducto] = new producto();
-            //Agregar Producto
+        listaProductos[indiceIncremento] = new producto();
+        //Agregar Producto
         System.out.println("Producto Agregado Correctamente");
-        listaProductos[numeroProducto].nombre += nombreProducto;
-        listaProductos[numeroProducto].categoria += categoriaElegida;
-        listaProductos[numeroProducto].precio += precioProducto;
-        listaProductos[numeroProducto].cantidadStock += cantidadStock;
-        listaProductos[numeroProducto].codigo += numeroProducto + 1 ;
-            
+        listaProductos[indiceIncremento].nombre = nombreProducto;
+        listaProductos[indiceIncremento].categoria = categoriaElegida;
+        listaProductos[indiceIncremento].precio = precioProducto;
+        listaProductos[indiceIncremento].cantidadStock = cantidadStock;
+        listaProductos[indiceIncremento].codigo = numeroProducto + 1 ;
+        
         numeroProducto++;
+        indiceIncremento++;
         regresarMenu.llamarMenu();
         
 
@@ -85,7 +91,6 @@ public class inventario {
         }
         seleccionBuscarProducto(buscarCriterio);
         
-        
     }
     
     public static void seleccionBuscarProducto(int opcionCriterio){
@@ -98,7 +103,7 @@ public class inventario {
             case 2:
                 menu.categoriaProducto();
                 int categoriaProducto = Integer.parseInt(System.console().readLine("Categoria del Producto: "));
-                while(categoriaProducto<1 && categoriaProducto > 10){
+                while(categoriaProducto<1 || categoriaProducto > 10){
                 categoriaProducto = Integer.parseInt(System.console().readLine("Ingresar alguna de las Categorias mostradas: "));
                 }
                 String buscarPorCategoria = menu.categoriaSeleccionada(categoriaProducto);
@@ -110,40 +115,57 @@ public class inventario {
     }
     
     public static void buscarNombre(int encontrado, String buscarPorNombre){
-        for (int contadorBusqueda = 0; contadorBusqueda <= numeroProducto; contadorBusqueda++){
+        for (int contadorBusqueda = 0; contadorBusqueda < indiceIncremento; contadorBusqueda++){
             if (buscarPorNombre.equalsIgnoreCase(listaProductos[contadorBusqueda].nombre)){
                 imprimirBusqueda(contadorBusqueda);
+                
+                menu.buscarBitacora(true, listaProductos[contadorBusqueda].nombre);
                 encontrado = 9;
             }
         }
         if (encontrado != 9){
             System.out.println("No se ha encontrado Ningun Producto.");
+
+            String agregarABitacora = menu.buscarBitacora(false, " ");
+            menu.bitacora(agregarABitacora);
         }
         menu.llamarMenu();
-
     }
     
     public static void buscarCategoria(int encontrado, String buscarPorCategoria){
-        
-        for (int contadorBusqueda = 0; contadorBusqueda <= numeroProducto; contadorBusqueda++){
+
+        for (int contadorBusqueda = 0; contadorBusqueda < indiceIncremento; contadorBusqueda++){
             if (buscarPorCategoria.equalsIgnoreCase(listaProductos[contadorBusqueda].categoria)){
                 imprimirBusqueda(contadorBusqueda);
+                
+                String agregarABitacora = menu.buscarBitacora(true, listaProductos[contadorBusqueda].nombre);
+                menu.bitacora(agregarABitacora);
                 encontrado = 9;
             }
         }
         if (encontrado != 9){
             System.out.println("No se ha encontrado Ningun Producto.");
+            String agregarABitacora = menu.buscarBitacora(false, " ");
+            menu.bitacora(agregarABitacora);
         }
         menu.llamarMenu();
     }
     
     public static void buscarCodigo(int encontrado,int buscarPorCodigo){
+
         if (buscarPorCodigo == listaProductos[buscarPorCodigo-1].codigo){
             imprimirBusqueda(buscarPorCodigo-1);
+
+            String agregarABitacora = menu.buscarBitacora(true, listaProductos[buscarPorCodigo-1].nombre);
+            menu.bitacora(agregarABitacora);
+            
             encontrado = 9;
         }
         if (encontrado != 9){
             System.out.println("No se ha encontrado Ningun Producto.");
+
+            String agregarABitacora = menu.buscarBitacora(false, " ");
+            menu.bitacora(agregarABitacora);
         }
         menu.llamarMenu();
     }
@@ -154,6 +176,7 @@ public class inventario {
         System.out.println("Categoria: " + listaProductos[productoNo].categoria);
         System.out.println("Cantidad: " + listaProductos[productoNo].cantidadStock);
         System.out.println("Precio: " + listaProductos[productoNo].precio);
+        System.out.println("----------------------");
     }
     
     
@@ -161,33 +184,50 @@ public class inventario {
     
     public static void eliminarProducto(){
         int codigoEliminar;
-
         
         //Verificar si hay productos registrados
         confirmarContenidoInventario();
-        
-        
+        acciones.imprimirListaProducto();
         
         codigoEliminar = Integer.parseInt(System.console().readLine("Ingresa el código del Producto: "));
         while(!confirmacion.verificarExistencia(codigoEliminar))
         {
             codigoEliminar = Integer.parseInt(System.console().readLine("Ingresa el código del Producto existente: "));
+            
         }
         
-        
+        int indiceCodigoEliminar = indiceProductoEliminar(codigoEliminar);
         
         
         if(!confirmacion.confirmarAccion()){
             System.out.println("Se cancelo Eliminar Producto");
-            
+            String bitacoraEliminar = menu.eliminarBitacora(false, listaProductos[indiceCodigoEliminar].nombre);
+            menu.bitacora(bitacoraEliminar);
             regresarMenu.llamarMenu();
+            
             return;
         }
         
+        menu.eliminarBitacora(true, listaProductos[indiceCodigoEliminar].nombre);
+        
         System.out.println("Producto Eliminado Correctamente.");
         listaProductos[codigoEliminar-1] = null;
-        numeroProducto++;
+        indiceIncremento--;
+        
+        for(int indice = indiceCodigoEliminar; indice < indiceIncremento; indice++){
+            listaProductos[indice] = listaProductos[indice+1];
+        }
+        
         regresarMenu.llamarMenu();
+    }
+    
+    public static int indiceProductoEliminar(int codigo){
+        for(int recorrer = 0; recorrer < indiceIncremento; recorrer++){
+            if(codigo == listaProductos[recorrer].codigo){
+                return recorrer;
+            }
+        }
+        return 0;
     }
     
     

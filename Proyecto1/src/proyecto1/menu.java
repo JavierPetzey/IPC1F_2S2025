@@ -1,8 +1,10 @@
 
 package proyecto1;
+import java.time.LocalTime;
+import java.time.LocalDate;
 
 public class menu {
-
+    static String bitacoraRegistro = " ";
     
     public static void llamarMenu()
     {
@@ -16,7 +18,7 @@ public class menu {
             
             menuOpcion = Integer.parseInt(System.console().readLine());
 
-            if (menuOpcion >= 1 && menuOpcion <= 8){
+            if (menuOpcion >= 1 && menuOpcion <= 9){
                 seleccionMenu(menuOpcion);
                 elegirOpcion = false;
             }else{
@@ -34,17 +36,13 @@ public class menu {
         System.out.println("2- Buscar Producto");
         System.out.println("3- Eliminar Producto");
         System.out.println("4- Registrar Venta");
-        System.out.println("5- Generar Reportes");
-        System.out.println("6- Ver Datos del Estudiante");
-        System.out.println("7- Bitácora");
-        System.out.println("8- Salir");
+        System.out.println("5- Bitácora");
+        System.out.println("6- Generar Reportes Inventario");
+        System.out.println("7- Generar Reportes Ventas");
+        System.out.println("8- Datos Del Estudiante");
+        System.out.println("9- Salir");
     }
-    
-    
-    
-    
-    
-    
+
     public static void seleccionMenu(int seleccion){
         inventario accionInventario = new inventario();
         ventas parteVentas = new ventas();
@@ -62,15 +60,19 @@ public class menu {
                     parteVentas.registrarVentas();
                     break;
                 case 5:
-                    parteVentas.registrarVentas();
+                    imprimirBitacora();
                     break;
                 case 6:
-                    parteVentas.generarReportes();
+                    parteVentas.generarReportesInventario();
                     break;
                 case 7:
-                    
+                    parteVentas.generarReportesVentas();
                     break;
                 case 8: 
+                    Proyecto1.Estudiante();
+                    break;
+                case 9:
+                    System.out.println("Terminado");
                     
                     break;
             }
@@ -119,9 +121,62 @@ public class menu {
     }
     
     
+    //Bitacora
+    public static String agregarProductoBitacora(boolean SiONo, int cantidad, String Nombre, String Categoria){
+        
+        if (!SiONo){
+            return " Se cancelo al agregar : " + cantidad + " cantidad de: " + Nombre + " en la categoria: " +Categoria+ " al inventario";
+        }
+        
+        return " Se agrego: " + cantidad + " cantidad de: " + Nombre + " en la categoria: " +Categoria+ " al inventario";
+    }
     
-    public static void bitacora(){
+    public static String buscarBitacora(boolean SiNo, String Nombre){
+        if (!SiNo){
+            return " Se intento buscar un producto no registrado";
+        }
+        return " Se busco el Elemento: " + Nombre;
+    }
+    
+    public static String eliminarBitacora(boolean SiNo, String Nombre){
+        if (!SiNo){
+            return " Se cancelo la accion de Elimnar: "+ Nombre;
+        }
+        return " Se elimmino: " + Nombre +" del Inventario";
+    }
+    
+    public static String ventaBitacora(boolean SiNo, String Nombre, int cantidad, double Precio){
+        if (!SiNo){
+            return " Se Cancelo la venta del producto: " +Nombre+" con la cantidad de: " + cantidad+ " con un Total de: Q"+ Precio;
+        }
+        return " Se realizo la venta del producto: " +Nombre+" con la cantidad de: " + cantidad+ " con un Total de: Q"+ Precio;
+    }
+    
+    public static String pdfInventarioBitacora(){
+        
+        return " Se creo un archivo pdf para el inventario";
+    }
+    
+    public static String pdfVentaBitacora(){
+        
+        return " Se creo un archivo pdf para las Ventas";
+    }
+    
+    public static void bitacora(String agregarALaLista){
+        LocalTime hora = LocalTime.now();
+        LocalDate fecha = LocalDate.now();
+        
+        bitacoraRegistro +="Fecha y Hora: "+fecha +" "+hora+  agregarALaLista + " por Javier Petzey"+"\n";
         
     }
+    
+
+    
+    public static void imprimirBitacora(){
+        System.out.println("Total de Acciones en el Programa: \n"+bitacoraRegistro );
+        llamarMenu();
+    }
+    
+    
 }
 

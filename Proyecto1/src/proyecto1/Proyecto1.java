@@ -12,4 +12,8 @@ public class Proyecto1 {
         
     }
     
+    public static void Estudiante(){
+        System.out.println("Nombre: José Javier Petzey Coquix | Carnet: 202403696");
+        menu.llamarMenu();
+    }
 }
