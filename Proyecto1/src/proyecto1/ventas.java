@@ -7,8 +7,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import java.time.LocalTime;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,15 +65,13 @@ public class ventas {
     
     
     public static void almacenarVenta(int codigo, int cantidad, double totalVenta, String nombreProducto){
-        LocalTime horaActual = LocalTime.now();
-        LocalDate fechaActual = LocalDate.now();
         
         totalVentasProductos[indiceNoRegistro] = new registroDeVenta();
         
         totalVentasProductos[indiceNoRegistro].codigoProducto = codigo;
         totalVentasProductos[indiceNoRegistro].nombreVentaProducto = nombreProducto;
         totalVentasProductos[indiceNoRegistro].cantidadVendida = cantidad;
-        totalVentasProductos[indiceNoRegistro].FechaYHora = "Fecha: " + fechaActual + " Hora:  " + horaActual ;
+        totalVentasProductos[indiceNoRegistro].FechaYHora = "Fecha y Hora: " + FechaYHora();
         totalVentasProductos[indiceNoRegistro].totalVenta = totalVenta;
         
         indiceNoRegistro++;
@@ -84,14 +80,13 @@ public class ventas {
     
     public static void generarReportesInventario(){
         inventario.confirmarContenidoInventario();
-        
         String nombrePDF = nombreDeLosPDF();
         
         
         try {
             String destino = nombrePDF + "_Stock.pdf";
             Document document = new Document();
-            //No se que hacen exactamente ciertas partes del código xd
+           
             PdfWriter.getInstance(document, new FileOutputStream(destino));
             document.open();
             
@@ -117,8 +112,6 @@ public class ventas {
     
     
     public static void generarReportesVentas(){
-        LocalTime horaActual = LocalTime.now();
-        LocalDate fechaActual = LocalDate.now();
         confirmarContenidoVentas();
         
         
@@ -127,7 +120,7 @@ public class ventas {
             String destino = nombrePDF + "_Venta.pdf";
             Document document = new Document();
             
-            //No se que hacen exactamente ciertas partes del código xd
+
             PdfWriter.getInstance(document, new FileOutputStream(destino));
             document.open();
             
@@ -176,6 +169,23 @@ public class ventas {
         
         FechaActual = dia + "_" + mes + "_" + año + "_";
         HoraActual = hora + "_" + minuto + "_" + segundos;
+        return FechaActual + HoraActual;
+    }
+    
+    public static String FechaYHora(){
+        Calendar Hora = Calendar.getInstance();
+        Calendar Fecha = Calendar.getInstance();
+        String HoraActual, FechaActual;
+        
+        int dia = Fecha.get(Calendar.DATE);
+        int mes = Fecha.get(Calendar.MONTH);
+        int año = Fecha.get(Calendar.YEAR);
+        int hora = Hora.get(Calendar.HOUR_OF_DAY);
+        int minuto = Hora.get(Calendar.MINUTE);
+        int segundos = Hora.get(Calendar.SECOND);
+        
+        FechaActual = dia + "/" + mes + "/" + año + " ";
+        HoraActual = hora + ":" + minuto + ":" + segundos;
         return FechaActual + HoraActual;
     }
 }
