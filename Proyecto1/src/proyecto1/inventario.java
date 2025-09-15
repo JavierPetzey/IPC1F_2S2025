@@ -208,7 +208,8 @@ public class inventario {
             return;
         }
         
-        menu.eliminarBitacora(true, listaProductos[indiceCodigoEliminar].nombre);
+        String biracoraEliminarSi = menu.eliminarBitacora(true, listaProductos[indiceCodigoEliminar].nombre);
+        menu.bitacora(biracoraEliminarSi);
         
         System.out.println("Producto Eliminado Correctamente.");
         listaProductos[codigoEliminar-1] = null;
